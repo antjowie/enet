@@ -57,20 +57,44 @@ endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
-set(INCLUDE_FILES_PREFIX include/enet)
-set(INCLUDE_FILES
-    ${INCLUDE_FILES_PREFIX}/callbacks.h
-    ${INCLUDE_FILES_PREFIX}/enet.h
-    ${INCLUDE_FILES_PREFIX}/list.h
-    ${INCLUDE_FILES_PREFIX}/protocol.h
-    ${INCLUDE_FILES_PREFIX}/time.h
-    ${INCLUDE_FILES_PREFIX}/types.h
-    ${INCLUDE_FILES_PREFIX}/unix.h
-    ${INCLUDE_FILES_PREFIX}/utility.h
-    ${INCLUDE_FILES_PREFIX}/win32.h
-)
+# set(INCLUDE_FILES_PREFIX include/enet)
+# set(INCLUDE_FILES
+#     ${INCLUDE_FILES_PREFIX}/callbacks.h
+#     ${INCLUDE_FILES_PREFIX}/enet.h
+#     ${INCLUDE_FILES_PREFIX}/list.h
+#     ${INCLUDE_FILES_PREFIX}/protocol.h
+#     ${INCLUDE_FILES_PREFIX}/time.h
+#     ${INCLUDE_FILES_PREFIX}/types.h
+#     ${INCLUDE_FILES_PREFIX}/unix.h
+#     ${INCLUDE_FILES_PREFIX}/utility.h
+#     ${INCLUDE_FILES_PREFIX}/win32.h
+# )
 
-set(SOURCE_FILES
+# set(SOURCE_FILES
+#     callbacks.c
+#     compress.c
+#     host.c
+#     list.c
+#     packet.c
+#     peer.c
+#     protocol.c
+#     unix.c
+#     win32.c)
+
+# source_group(include FILES ${INCLUDE_FILES})
+# source_group(source FILES ${SOURCE_FILES})
+
+add_library(enet STATIC
+    include/enet/callbacks.h
+    include/enet/enet.h
+    include/enet/list.h
+    include/enet/protocol.h
+    include/enet/time.h
+    include/enet/types.h
+    include/enet/unix.h
+    include/enet/utility.h
+    include/enet/win32.h
+
     callbacks.c
     compress.c
     host.c
@@ -79,17 +103,11 @@ set(SOURCE_FILES
     peer.c
     protocol.c
     unix.c
-    win32.c)
-
-source_group(include FILES ${INCLUDE_FILES})
-source_group(source FILES ${SOURCE_FILES})
-
-add_library(enet STATIC
-    ${INCLUDE_FILES}
-    ${SOURCE_FILES}
+    win32.c
 )
 
-target_include_directories(enet PUBLIC include)
+target_include_directories(enet PUBLIC 
+    include)
 
 if (WIN32)
     target_link_libraries(enet winmm ws2_32)
