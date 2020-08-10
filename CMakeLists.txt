@@ -106,6 +106,8 @@ add_library(enet STATIC
     win32.c
 )
 
+add_library (Enet::enet ALIAS enet)
+
 target_include_directories(enet PUBLIC 
     include)
 
